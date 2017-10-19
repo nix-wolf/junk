@@ -1,0 +1,40 @@
+This is the documentation that will be attached to final for a discription of 
+the code on how to use it and read it. That is by giving the explicit definition
+of all of the variables and in what positions mean what.
+
+Static Variables
+ms = main state bit array
+is = input state bit array
+os = output state bit array
+
+fb = file buffer
+fbb = file back buffer
+lb = line buffer
+lbb = line back buffer
+len = length storage array for buffers
+x = storage of place in line
+y = storage of line of file
+c = current char being read
+i = main program cycle (if in main loop)
+
+Ref Values
+a[] = integer array
+b[] = bit array
+ch[] = char array
+
+m[] = main bit array
+i[] = input bit array
+o[] = output bit array
+l[] = length storage array
+
+b = bit
+l = length
+n = number 
+r = relativity
+c = character
+sx = starting letter
+sy = starting line
+ex = ending letter
+ey = ending line
+
+Functions definitions as usage:

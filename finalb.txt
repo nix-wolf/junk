@@ -1,0 +1,137 @@
+final basic c program:
+
+scope incorperating the last five exercises into one final program:
+which is encapslated to using them in a text editor to write basic programs
+that will have a max potential size. The editor will let you write it and change it. will wrap lines and check syntax you will also add and remove your comments and redisplay. 
+
+THERE IS NO SAVING TO THIS PROGRAM, everything is only in a live state.
+
+to do this:
+
+loop over main in two states: cmdmode and write mode
+
+int head[TABSTOP]
+	- stores technical bits for states
+	0	1	2	3	4	5	6	7
+	state	tab	folding	comment	debug	ex	ex	ex
+
+WHILE
+	IF 1
+		input checked against commands
+		-entab
+			-setup line organisation based on tab columns
+			-offset accessor based on col n + x,
+				x = 0-7 of tab col n
+				n = tab in line
+				line with linewrapping means there are
+				8 columns of 8 equalling 64
+		-detab
+			-setup line to be read based of s[i] to the max
+			line size when wrapper to 64 in place
+		-rcomment
+			-if line starts with // OR /* don't print to */
+		-debug
+			-checks for syntax errors
+		-write
+			-change state
+			-initialized state of write 0,0,0 ... puts initial read: input into fbb: file back buffer
+			-explination: we store intial read of live input
+	else 0
+		write to the file back buffer first then enter into input from user on the commands side.
+		
+
+use of back buffers for lines & files
+
+cycle of loop
+
+check and handle operations
+bits[i] ++i;
+
+note: in each incrment we handle each different set of data pretaining to each bit.
+
+-each bit has associated functions and definitions that is uses
+-written program declarations are sections in the same structure
+
+example:
+	/*comment regarding bit "/*b0*/ ... /*b1*/ ... /*bN*/ 	
+	#define variable forb1
+	/*b2*/
+	#define variable forb2
+	/*bN*/	//TEMPLATE USE TO COPY AS A LABEL @ LOC<insert INT here>
+	#define variable forbN	//TEMPLATE COPY DEFVAR @ LOC<like: line>
+
+main(){
+	/*program sequence reading each bit and hangling*/
+		-using while loop that is cycling and each iteration of the code is the next bit ++i; if i = TABSTOP - 1; i = 0 :/*else*/ ++i;
+		-use remove comments to push values int fbbuff
+	int bits[TABSTOP]:8 //:N; "=to" to:N ::=
+	
+
+	/*reduction and compression: thought*/
+}
+
+bit 0: state: main
+ THE first cycle is only enter once
+	-STATE of Program = OFF
+	-initialize Program and STATE = ON
+bit 1: state: polarity
+ The two states of on
+	-
+	-
+bit 2: tab
+ The two states of tab styling
+	-entab 1
+	-detab 0
+bit 3: folding
+ a line being folded into uder 64 char array
+	-Off 0
+	-On 1
+bit 4: comment
+ comment visablity when getting data from back buffer
+	-Off 0
+	-On 1
+bit 5: debug
+ activate the debugger output that will be displayed after each command
+	-Off 0
+	-On 1
+bit 6: ex
+ value for choice storage
+bit 7: ex
+ value for choice storage
+
+
+thought: reduction ; compression,
+	using only the code here and the programmatic approach, with nothing more then the compiled code and its text : 
+	an empty buffer x; THIS files back buffer y , a line z and a line back buffer t 
+	make it most efficent per size and max value to its ability to write, its own code using its self given proper structure and a grouping of executable commands.
+
+	deeper: thought; encrption, 
+		the end of the compiled text of the code is written but each state has the route to decode its self "disregard for philosphy"
+		then attach this into a expanded encryption that only specific users can see such as	
+
+thought: file i/o; tobe,
+	the original program will not be using i/o as i believe reading from file and writting from file directly should be handled by another section of code this: 
+	is in reference to; the 3 pronged program approch, 
+		I have described in latter work. stating that that a proper program will run in 3 seperate sections being executed at once(or in different intermitten stages of process each in line with the sequence). this is were THIS structure and code will be the rudementary process for handling the program, in other words we write and output files which get compiled and executed.
+
+// \" \' \` \~ \- \* the use of floating char:symbols in \"d\" 
+// example like ": ; ," in mark up the other values \" " ' ` ~ - * \" || 
+// this" is ' the ` heriachy ~ of - floating * symbols
+// qoute 0 inside a quote... 1 inside a quote.. 2 inside a quote N.
+// "." should be after , I THINK
+ 
+This then would give us a depth access level of "3 prime numbers ; : ,"
+and "6 secondary numbers of offset" this is using 9 characters as reference to a single item in the list of processes ongoing in the cycle: iteration
+	of a program : example ;
+
+bit N: item N; 
+	"var 'itemN "func 'itemN "text 'itemN,
+	 val1 "val1 valN "valN 
+
+- "non-floating" symbols are references to absolute's
+- floating symbols are declarations both for a new file, or a current file in the buffer
+
+Compsci Thought:
+	using only <stdio.h> to write a buffering system to take input as the d markup I proposed in other works of mine, where you can write it and read it into the front buffer and displays to use as executable code.
+	by doing this I will be fufilling not only the 5 exercises described at the end of ansi-s programming chapter 1 but will also being doing the much advised method of programming to learn more about programming. By doing so even as a C Novice at best I will be able to see and show a firm grasp of only the most basic principles of the C programming language but will be able to show a relative grasp of Computer Science and Technology on the level of or at least "@<" better then average esspetially being self guided. 
+		
