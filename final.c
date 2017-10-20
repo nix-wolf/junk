@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-/* constant variables */
 #define TABS 8
 #define WRAP 64
 #define MAXL 512
@@ -8,8 +7,6 @@
 #define O 0
 #define I 1
 
-/* function prototypes */
-//input functions
 int input(char ch[], int l, int cb_x, int cb_y);
 void move(char ch[], char c, int cb_x, int cb_y, int n);
 void set(char ch[], char c, int p);
@@ -17,20 +14,19 @@ void add(char ch[], char c, int cb_x, int cb_y, int l);
 void rem(char ch[], int x, int y, int l);
 int getl(char s[], int lim);
 
-//output functions
 void printc(char a[], int l);
 void printb(int b[], int n);
 int rcpy(char f[], char t[], int c, int cb_x, int cb_y);
 
-//program functions
 void x_in_b(int b[], int n);
 int init_b(int b[], int n);
 
 int main(){
 
   int ms[TABS];
-  char fb[MAXF], ib[MAXL], ob[MAXL];
+  char  ib[MAXL], ob[MAXL], fb[MAXF], bb[MAXF];
   int  x[3], y[3], z[3], t[3];
+  int cx, cy, cz, ct, lc;
   int i, c;
   
   ms[0] = init_b(ms, TABS);
@@ -39,38 +35,42 @@ int main(){
   init_b(y, 3);
   init_b(z, 3);
   i = 0;
+
+  cx = cy = cz = ct = lc = 0;
   
   while(ms[0]){
-
-    if(!i)
+    
+    if(!i){
+      printf("I cannot be 0, setting to 1\n");
       ++i;
+    }
+        
+    printf("Intra-Cycle Count: %d\n", i);
 
-    printf("Cycle Count: %d\n", i);
-    printf("BIT-VAL going in: %d\n", ms[i]);
     if(!ms[i]&&i<2){
       printf("Entering Output Handling\n");
 
+      printf("S_Handler bit checking: %d\n", ms[4]);
       if(!ms[4]){
-	printf("Output to screen\n");
-	/*ouput_buffer is for screen*/
-	printc(ob, t[i-i]);
+	printf("Output to screen:\n %s\n", ob);
       }else{
 	
 	printf("Output to buffer\n");
-	/*output_buffer is for buffer*/
 	rcpy(ob, fb, c, x[i-i], y[i-i]); 
       }
       
-      printf("Setting Bits to Input\n");
       x_in_b(ms, i);
     } else if(ms[i]&&i<2){
-
+   
+      printf("Buffer to Input into: ");	
+      printf("<%d,%d>\n", ms[2], ms[3]);
       if(ms[4]){
-	printf("<Enter Command to Apply: "kill" to exit>\n");
-	printf("<CB_X:%d CB_Y:%d 
+	printf("<Enter Command to Apply: 'kill' to exit>\n");
+	printf("<CB_X:%d CB_Y:%d CB_Z:%d CB_T:%d>:\n", cx, cy, cz, ct);
+	cz = input(ib, z[i], x[i], y[i]);
       } else {
 	printf("<Enter a Statement: Ctrl-D to exit>\n");
-	//input
+	cz = input(ib, z[i], x[i], y[i]);
       }
 
       
@@ -78,98 +78,81 @@ int main(){
       if(!ms[2] && !ms[3]){
 	
 	printf("Buff_Bits set to OB\n");
-	/*a buffer is inputted into ob
-	  use bit s_handler or ms[4]
-	  if (!x)
-	  input is copied to ob
-	  else
-	  reference value from fb is copied into ob
-	  -this is using a cmd, so the principle is
-	  if s_handler == true || (ms[4]) 
-	  then we know that input contains a command not a statement
-	 */
 	if(!ms[4]){
-	 
+	 	
 	  printf("Input Being Copied To OB\n");
-	  rcpy(ib, ob, c, x[i-i], y[i-i]);
+	  rcpy(ib, ob, 0, 0, 0);
 	} else {
 	  
 	}
 
-	printf("Setting Bits to Input\n");
+	printf("Setting Input Buffer to: i_buff\n");
 	x_in_b(ms, 3);
       }else if(!ms[2] && ms[3]){
-		 printf("Input into Input buffer\n");
-	/*
-	  outputting INTO the input_buffer, is based on the sequence that
-	  what has been loaded in will then be sent to another buffer, ethier fb or bb
-	  for the base test of the routine it will be implictly the fb, later based on s_handler 
-	  we will also be able to send data into the back buffer IF NOT S_HANDLER BIT input for command
-	*/
 
-       
+	printf("Input into Input buffer\n");
+	
+	printf("Setting Input Buffer to: f_buff\n");
 	x_in_b(ms, 2);
 	x_in_b(ms, 3);
       }else if(ms[2] && !ms[3]){
-		 printf("Input into the Front-Buffer\n");
-	/*
-	  inputting INTO front_buffer, comes in a few different ways that will need to be handled
-	  
-	 */
-	rcpy(ob, fb, c, x[i+i], y[i+i]);
 	
+	printf("Input into the Front-Buffer\n");
+	rcpy(ob, fb, c, x[i+i], y[i+i]);
+	printf("Setting Input Buffer to: b_buff\n");
 	x_in_b(ms, 3);
       }else if(ms[2] && ms[3]){
-		 printf("Input into the Back-Buffer\n");
-	/*This block will be for the back_buffer
-	  -The back buffer will be used to move data from front_buffer
-	  if it is required that it not have commands applied to it
-	  *basically: this; is, a. rough description
-	 */
+	
+	printf("Input into the Back-Buffer\n");
+	
+	printf("Setting Input Buffer to: o_buff\n");
 	x_in_b(ms, 2);
 	x_in_b(ms, 3);
       }else {
 	printf("/tERROR: Outside OF RANGE Which is technically impossible...\nSo why are you here...\n Exiting...\n\n");
 	break;
       }
+      x_in_b(ms, 1);
+      x_in_b(ms, 4);
       ++i;
-      x_in_b(ms, i);
     } else {
-      printf("Cycling bits: %d\n", i);
-      if(ms[4] && i>=TABS-1)
-	break;
 
       if(i>=TABS-1){
-	i=0;//reset counter when of bit array length is reached 
-	x_in_b(ms, 4);//turn on or off s_handler for next cycle to perform subsequent handling
 	
+	printf("Resetting Cycle Counter:\n");
+	i=0;
       }
-      /* Handle bits is is:input state; and os:output state; later implement after the base routine is down*/
-	 
-	++i;
+      ++i;
     }
-
   }
 }
 
 int input(char ch[], int l, int cx, int cy){
   int i = 0;
   char line[MAXL];
-  
-  while(i = getl(line, MAXL) > 0)
-    
-    
-    ;
+
+  printf("Entering input loop, in function input()\n");
+  while(i = getl(line, MAXL) > 0){
+    printf("Handling, input read by line\n");
+    ++cy;
+
+    rcpy(line, ch, 0, 0, 0);
+  }
   return i;
 }
 
 int getl(char ch[], int lim){
   int c, i;
 
-  for(i=0;i<lim-1&&(c=getchar())!=EOF; ++i){
+  for(i=0;i<lim-1&&(c=getchar())!=EOF && c != '\n'; ++i){
     ch[i] = c;
-    ++i;
+    if(c == '\n'){
+      ch[i] = c;
+      ++i;
+    }
   }
+  ch[i] = '\0';
+  return i;
 }
 
 
@@ -192,17 +175,18 @@ void printc(char a[], int len){
     rcpy: reference copy function; used to copy a buffer into another buffer while allowing for referencing
     via a char o:option, and locations cb_x:current buffer char in line, and cb_y:current buffer line
     
-    cb_y is used to count '\n'
+    cb_y is used to count lines'\n'
     cb_x is used to count chars in line
     
     options: i or r
-    i = insert at x,y 
+    i = insert at x,y till 
     r = is replace at x,y till '\0' is read
    */
 int rcpy(char f[], char t[], int o, int cb_x, int cb_y){
   int i=O;
-  while((t[i]=f[i])!='\0')
+  while((t[i] = f[i]) !='\0'){
     ++i;
+    }
 }
 
 
